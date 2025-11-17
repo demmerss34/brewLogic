@@ -18,13 +18,12 @@
       {{/each}}
 
       {{!-- DELETE form --}}
-      <form id="delete_product_form">
-        <input type="hidden" name="delete_product_id" value="{{this.productID}}" />
-        <input type="hidden" name="delete_product_name" value="{{this.productName}}" />
-        <td>
+      <td>
+        <form method="POST" action="/products/delete">
+          <input type="hidden" name="delete_product_id" value="{{productID}}" />
           <button type="submit">Delete</button>
-        </td>
-      </form>
+        </form>
+      </td>
     </tr>
     {{/each}}
   </tbody>

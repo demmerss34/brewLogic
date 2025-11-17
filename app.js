@@ -124,6 +124,75 @@ app.get('/orderitems', async function (req, res) {
     }
 });
 
+// RESET Database Route
+app.get('/reset', async function (req, res) {
+    try {
+        const query = 'CALL sp_brewlogic_reset();';
+        await db.query(query);
+        console.log("Database reset successfully.");
+        res.redirect('/'); 
+    } catch (error) {
+        console.error('Error executing reset:', error);
+        res.status(500).send('An error occurred while resetting the database.');
+    }
+});
+
+// DELETE Routes
+app.post('/clients/delete', async (req, res) => {
+    try {
+        const clientID = req.body.delete_client_id;
+        await db.query('CALL sp_delete_client(?);', [clientID]);
+        res.redirect('/clients');
+    } catch (error) {
+        console.error("Error deleting client:", error);
+        res.status(500).send("Delete failed.");
+    }
+});
+
+app.post('/products/delete', async (req, res) => {
+    try {
+        const productID = req.body.delete_product_id;
+        await db.query('CALL sp_delete_product(?);', [productID]);
+        res.redirect('/products');
+    } catch (error) {
+        console.error("Error deleting product:", error);
+        res.status(500).send("Delete failed.");
+    }
+});
+
+app.post('/categories/delete', async (req, res) => {
+    try {
+        const categoryID = req.body.delete_category_id;
+        await db.query('CALL sp_delete_category(?);', [categoryID]);
+        res.redirect('/categories');
+    } catch (error) {
+        console.error("Error deleting category:", error);
+        res.status(500).send("Delete failed.");
+    }
+});
+
+app.post('/salesorders/delete', async (req, res) => {
+    try {
+        const orderID = req.body.delete_salesorder_id;
+        await db.query('CALL sp_delete_salesorder(?);', [orderID]);
+        res.redirect('/salesorders');
+    } catch (error) {
+        console.error("Error deleting sales order:", error);
+        res.status(500).send("Delete failed.");
+    }
+});
+
+app.post('/orderitems/delete', async (req, res) => {
+    try {
+        const orderItemID = req.body.delete_orderitem_id;
+        await db.query('CALL sp_delete_orderitem(?);', [orderItemID]);
+        res.redirect('/orderitems');
+    } catch (error) {
+        console.error("Error deleting order item:", error);
+        res.status(500).send("Delete failed.");
+    }
+});
+
 // ########################################
 // ########## LISTENER
 

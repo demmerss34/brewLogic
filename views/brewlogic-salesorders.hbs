@@ -21,7 +21,7 @@
 
       <td>
         {{!-- DELETE form --}}
-        <form id="delete_salesorder_form">
+        <form method="POST" action="/salesorders/delete">
           <input type="hidden" name="delete_salesorder_id" value="{{orderID}}" />
           <button type="submit">Delete</button>
         </form>

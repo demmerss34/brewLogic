@@ -13,8 +13,8 @@
     <tr>
       {{#each this}}<td>{{this}}</td>{{/each}}
       <td>
-        <form id="delete_orderitem_form">
-          <input type="hidden" name="delete_orderitem_id" value="{{this.orderItemID}}" />
+        <form method="POST" action="/orderitems/delete">
+          <input type="hidden" name="delete_orderitem_id" value="{{orderItemID}}" />
           <button type="submit">Delete</button>
         </form>
       </td>
