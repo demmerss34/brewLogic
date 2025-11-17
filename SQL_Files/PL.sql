@@ -2,6 +2,15 @@
 -- Group 10: Logical Solutions
 -- Charles Davis, Stephan Demmers
 
+--Citation for use of AI:
+-- Date: 11/17/2025
+-- Summary of prompts used to generate PL.sql:
+-- "Create a SQL stored procedure to reset the database schema for a brewlogic, including 
+-- [insert brewlogic DDL.sql here] for creating tables and inserting sample data. Also, 
+-- create stored procedures to delete entries from each table, ensuring referential integrity,
+-- and make sure to include DROP PROCEDURE statements for each."
+-- AI SOURCE URL: https://copilot.microsoft.com/
+
 -- Drop and recreate RESET procedure
 DROP PROCEDURE IF EXISTS sp_brewlogic_reset;
 DELIMITER //
