@@ -31,25 +31,28 @@
 
 {{!-- CREATE form --}}
 <h2>Create a Category</h2>
-<form class="cuForm" id="create_category_form">
-  <label for="create_category_name">Category Name:</label>
-  <input type="text" name="create_category_name" id="create_category_name" required />
-  <input type="submit" />
+<form class="cuForm" id="create_category_form" method="POST" action="/categories/add">
+  <label for="categoryName">Category Name:</label>
+  <input type="text" name="categoryName" id="categoryName" required />
+
+  <button type="submit">Add Category</button>
 </form>
 
 {{!-- UPDATE form --}}
 <h2>Update a Category</h2>
-<form class="cuForm" id="update_category_form">
-  <label for="update_category_id">Select Category:</label>
-  <select name="update_category_id" id="update_category_id" required>
-    <option value="" disabled selected>Select a category</option>
+<form class="cuForm" id="update_category_form" method="POST" action="/categories/update">
+  <label for="categoryID">Category to Update:</label>
+  <select name="categoryID" id="categoryID" required>
+    <option value="" disabled selected>Select a Category</option>
     {{#each categories}}
-    <option value="{{this.categoryID}}">{{this.categoryName}}</option>
+    <option value="{{this.categoryID}}">
+      {{this.categoryID}} - {{this.categoryName}}
+    </option>
     {{/each}}
   </select>
 
-  <label for="update_category_name">New Category Name:</label>
-  <input type="text" name="update_category_name" id="update_category_name" required />
+  <label for="categoryName">New Category Name:</label>
+  <input type="text" name="categoryName" id="categoryName" required />
 
-  <input type="submit" />
+  <button type="submit">Update Category</button>
 </form>

@@ -137,6 +137,93 @@ app.get('/reset', async function (req, res) {
     }
 });
 
+// CREATE Routes
+app.post('/clients/add', async (req, res) => {
+    try {
+        const { firstName, lastName, email, phoneNumber, address, categoryID } = req.body;
+        await db.query('CALL sp_insert_client(?,?,?,?,?,?)',
+            [firstName, lastName, email, phoneNumber, address, categoryID]);
+        res.redirect('/clients');
+    } catch (error) {
+        console.error("Error adding client:", error);
+        res.status(500).send("Add failed.");
+    }
+});
+
+app.post('/products/add', async (req, res) => {
+    const { productName, beerType, beerPrice, productInStock, currentlyAvailable } = req.body;
+    await db.query('CALL sp_insert_product(?,?,?,?,?)',
+        [productName, beerType, beerPrice, productInStock, currentlyAvailable]);
+    res.redirect('/products');
+});
+
+app.post('/categories/add', async (req, res) => {
+    const { categoryName } = req.body;
+    await db.query('CALL sp_insert_category(?)', [categoryName]);
+    res.redirect('/categories');
+});
+
+app.post('/salesorders/add', async (req, res) => {
+    const { orderDate, clientID, totalAmount, orderStatus } = req.body;
+    await db.query('CALL sp_insert_salesorder(?,?,?,?)',
+        [orderDate, clientID, totalAmount, orderStatus]);
+    res.redirect('/salesorders');
+});
+
+// CREATE Route for OrderItems
+app.post('/orderitems/add', async (req, res) => {
+    const { orderID, productID, orderQty, unitPrice } = req.body;
+    try {
+        await db.query('CALL sp_insert_orderitem(?,?,?,?)',
+            [orderID, productID, orderQty, unitPrice]);
+        res.redirect('/orderitems');
+    } catch (error) {
+        console.error("Error adding order item:", error);
+        res.status(500).send("Add failed. Did you try to add a duplicate product to the same order?");
+    }
+});
+
+
+// UPDATE Routes
+app.post('/clients/update', async (req, res) => {
+    try {
+        const { clientID, firstName, lastName, email, phoneNumber, address, categoryID } = req.body;
+        await db.query('CALL sp_update_client(?,?,?,?,?,?,?)',
+            [clientID, firstName, lastName, email, phoneNumber, address, categoryID]);
+        res.redirect('/clients');
+    } catch (error) {
+        console.error("Error updating client:", error);
+        res.status(500).send("Update failed.");
+    }
+});
+
+app.post('/products/update', async (req, res) => {
+    const { productID, productName, beerType, beerPrice, productInStock, currentlyAvailable } = req.body;
+    await db.query('CALL sp_update_product(?,?,?,?,?,?)',
+        [productID, productName, beerType, beerPrice, productInStock, currentlyAvailable]);
+    res.redirect('/products');
+});
+
+app.post('/categories/update', async (req, res) => {
+    const { categoryID, categoryName } = req.body;
+    await db.query('CALL sp_update_category(?,?)', [categoryID, categoryName]);
+    res.redirect('/categories');
+});
+
+app.post('/salesorders/update', async (req, res) => {
+    const { orderID, orderDate, clientID, totalAmount, orderStatus } = req.body;
+    await db.query('CALL sp_update_salesorder(?,?,?,?,?)',
+        [orderID, orderDate, clientID, totalAmount, orderStatus]);
+    res.redirect('/salesorders');
+});
+
+app.post('/orderitems/update', async (req, res) => {
+    const { orderItemID, orderQty, unitPrice } = req.body;
+    await db.query('CALL sp_update_orderitem(?,?,?)',
+        [orderItemID, orderQty, unitPrice]);
+    res.redirect('/orderitems');
+});
+
 // DELETE Routes
 app.post('/clients/delete', async (req, res) => {
     try {

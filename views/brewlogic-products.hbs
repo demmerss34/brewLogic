@@ -31,34 +31,34 @@
 
 {{!-- CREATE form --}}
 <h2>Create a Product</h2>
-<form class="cuForm" id="create_product_form">
-  <label for="create_product_name">Name:</label>
-  <input type="text" name="create_product_name" id="create_product_name" required />
+<form class="cuForm" id="create_product_form" method="POST" action="/products/add">
+  <label for="productName">Name:</label>
+  <input type="text" name="productName" id="productName" required />
 
-  <label for="create_product_beerType">Beer Type:</label>
-  <input type="text" name="create_product_beerType" id="create_product_beerType" required />
+  <label for="beerType">Beer Type:</label>
+  <input type="text" name="beerType" id="beerType" required />
 
-  <label for="create_product_beerPrice">Price:</label>
-  <input type="number" step="0.01" name="create_product_beerPrice" id="create_product_beerPrice" required />
+  <label for="beerPrice">Price:</label>
+  <input type="number" step="0.01" name="beerPrice" id="beerPrice" required />
 
-  <label for="create_product_productInStock">Stock Quantity:</label>
-  <input type="number" name="create_product_productInStock" id="create_product_productInStock" required />
+  <label for="productInStock">Stock Quantity:</label>
+  <input type="number" name="productInStock" id="productInStock" required />
 
-  <label for="create_product_currentlyAvailable">Available:</label>
-  <select name="create_product_currentlyAvailable" id="create_product_currentlyAvailable" required>
+  <label for="currentlyAvailable">Available:</label>
+  <select name="currentlyAvailable" id="currentlyAvailable" required>
     <option value="" disabled selected>Select Availability</option>
     <option value="1">Yes</option>
     <option value="0">No</option>
   </select>
 
-  <input type="submit" />
+  <button type="submit">Add Product</button>
 </form>
 
 {{!-- UPDATE form --}}
 <h2>Update a Product</h2>
-<form class="cuForm" id="update_product_form">
-  <label for="update_product_id">Product to Update:</label>
-  <select name="update_product_id" id="update_product_id" required>
+<form class="cuForm" id="update_product_form" method="POST" action="/products/update">
+  <label for="productID">Product to Update:</label>
+  <select name="productID" id="productID" required>
     <option value="" disabled selected>Select a Product</option>
     {{#each products}}
     <option value="{{this.productID}}">
@@ -67,22 +67,24 @@
     {{/each}}
   </select>
 
-  <label for="update_product_beerType">New Beer Type:</label>
-  <input type="text" name="update_product_beerType" id="update_product_beerType" />
+  <label for="productName">New Name:</label>
+  <input type="text" name="productName" id="productName" />
 
-  <label for="update_product_beerPrice">New Price:</label>
-  <input type="number" step="0.01" name="update_product_beerPrice" id="update_product_beerPrice" />
+  <label for="beerType">New Beer Type:</label>
+  <input type="text" name="beerType" id="beerType" />
 
-  <label for="update_product_productInStock">New Stock Quantity:</label>
-  <input type="number" name="update_product_productInStock" id="update_product_productInStock" />
+  <label for="beerPrice">New Price:</label>
+  <input type="number" step="0.01" name="beerPrice" id="beerPrice" />
 
-  <label for="update_product_currentlyAvailable">New Availability:</label>
-  <select name="update_product_currentlyAvailable" id="update_product_currentlyAvailable">
+  <label for="productInStock">New Stock Quantity:</label>
+  <input type="number" name="productInStock" id="productInStock" />
+
+  <label for="currentlyAvailable">New Availability:</label>
+  <select name="currentlyAvailable" id="currentlyAvailable">
     <option value="" disabled selected>Select Availability</option>
     <option value="1">Yes</option>
     <option value="0">No</option>
   </select>
 
-  <input type="submit" />
+  <button type="submit">Update Product</button>
 </form>
-

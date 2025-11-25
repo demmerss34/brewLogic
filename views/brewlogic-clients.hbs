@@ -31,38 +31,38 @@
 
 {{!-- CREATE form --}}
 <h2>Create a Client</h2>
-<form class="cuForm" id="create_client_form">
-  <label for="create_client_firstName">First Name:</label>
-  <input type="text" name="create_client_firstName" id="create_client_firstName" required />
+<form class="cuForm" id="create_client_form" method="POST" action="/clients/add">
+  <label for="firstName">First Name:</label>
+  <input type="text" name="firstName" id="firstName" required />
 
-  <label for="create_client_lastName">Last Name:</label>
-  <input type="text" name="create_client_lastName" id="create_client_lastName" required />
+  <label for="lastName">Last Name:</label>
+  <input type="text" name="lastName" id="lastName" required />
 
-  <label for="create_client_email">Email:</label>
-  <input type="email" name="create_client_email" id="create_client_email" />
+  <label for="email">Email:</label>
+  <input type="email" name="email" id="email" required />
 
-  <label for="create_client_phoneNumber">Phone Number:</label>
-  <input type="text" name="create_client_phoneNumber" id="create_client_phoneNumber" />
+  <label for="phoneNumber">Phone Number:</label>
+  <input type="text" name="phoneNumber" id="phoneNumber" />
 
-  <label for="create_client_address">Address:</label>
-  <input type="text" name="create_client_address" id="create_client_address" />
+  <label for="address">Address:</label>
+  <input type="text" name="address" id="address" />
 
-  <label for="create_client_categoryID">Category:</label>
-  <select name="create_client_categoryID" id="create_client_categoryID" required>
+  <label for="categoryID">Category:</label>
+  <select name="categoryID" id="categoryID" required>
     <option value="" disabled selected>Select Category</option>
     {{#each categories}}
     <option value="{{this.categoryID}}">{{this.categoryName}}</option>
     {{/each}}
   </select>
 
-  <input type="submit" />
+  <button type="submit">Add Client</button>
 </form>
 
 {{!-- UPDATE form --}}
 <h2>Update a Client</h2>
-<form class="cuForm" id="update_client_form">
-  <label for="update_client_id">Client to Update:</label>
-  <select name="update_client_id" id="update_client_id" required>
+<form class="cuForm" id="update_client_form" method="POST" action="/clients/update">
+  <label for="clientID">Client to Update:</label>
+  <select name="clientID" id="clientID" required>
     <option value="" disabled selected>Select a Client</option>
     {{#each clients}}
     <option value="{{this.clientID}}">
@@ -71,23 +71,28 @@
     {{/each}}
   </select>
 
-  <label for="update_client_email">New Email:</label>
-  <input type="email" name="update_client_email" id="update_client_email" />
+  <label for="firstName">New First Name:</label>
+  <input type="text" name="firstName" id="firstName" />
 
-  <label for="update_client_phoneNumber">New Phone Number:</label>
-  <input type="text" name="update_client_phoneNumber" id="update_client_phoneNumber" />
+  <label for="lastName">New Last Name:</label>
+  <input type="text" name="lastName" id="lastName" />
 
-  <label for="update_client_address">New Address:</label>
-  <input type="text" name="update_client_address" id="update_client_address" />
+  <label for="email">New Email:</label>
+  <input type="email" name="email" id="email" />
 
-  <label for="update_client_categoryID">New Category:</label>
-  <select name="update_client_categoryID" id="update_client_categoryID">
+  <label for="phoneNumber">New Phone Number:</label>
+  <input type="text" name="phoneNumber" id="phoneNumber" />
+
+  <label for="address">New Address:</label>
+  <input type="text" name="address" id="address" />
+
+  <label for="categoryID">New Category:</label>
+  <select name="categoryID" id="categoryID">
     <option value="" disabled selected>Select Category</option>
     {{#each categories}}
     <option value="{{this.categoryID}}">{{this.categoryName}}</option>
     {{/each}}
   </select>
 
-  <input type="submit" />
+  <button type="submit">Update Client</button>
 </form>
-

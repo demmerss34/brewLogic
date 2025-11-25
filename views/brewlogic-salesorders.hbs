@@ -33,63 +33,58 @@
 
 {{!-- CREATE form --}}
 <h2>Create a Sales Order</h2>
-<form class="cuForm" id="create_salesorder_form">
-  <label for="create_salesorder_clientID">Client:</label>
-  <select name="create_salesorder_clientID" id="create_salesorder_clientID" required>
-    <option value="" disabled selected>Select a Client</option>
+<form class="cuForm" id="create_salesorder_form" method="POST" action="/salesorders/add">
+  <label for="orderDate">Order Date:</label>
+  <input type="date" name="orderDate" id="orderDate" required />
+
+  <label for="clientID">Client:</label>
+  <select name="clientID" id="clientID" required>
+    <option value="" disabled selected>Select Client</option>
     {{#each clients}}
-    <option value="{{this.clientID}}">{{this.firstName}} {{this.lastName}}</option>
+    <option value="{{this.clientID}}">
+      {{this.clientID}} - {{this.firstName}} {{this.lastName}}
+    </option>
     {{/each}}
   </select>
 
-  <label for="create_salesorder_orderDate">Order Date:</label>
-  <input type="date" name="create_salesorder_orderDate" id="create_salesorder_orderDate" required />
+  <label for="totalAmount">Total Amount:</label>
+  <input type="number" step="0.01" name="totalAmount" id="totalAmount" required />
 
-  <label for="create_salesorder_totalAmount">Total Amount:</label>
-  <input type="number" step="0.01" name="create_salesorder_totalAmount" id="create_salesorder_totalAmount" required />
+  <label for="orderStatus">Order Status:</label>
+  <input type="text" name="orderStatus" id="orderStatus" required />
 
-  <label for="create_salesorder_orderStatus">Order Status:</label>
-  <select name="create_salesorder_orderStatus" id="create_salesorder_orderStatus" required>
-    <option value="" disabled selected>Select Status</option>
-    <option value="Pending">Pending</option>
-    <option value="Shipped">Shipped</option>
-    <option value="Completed">Completed</option>
-    <option value="Cancelled">Cancelled</option>
-  </select>
-
-  <input type="submit" />
+  <button type="submit">Add Order</button>
 </form>
 
 {{!-- UPDATE form --}}
 <h2>Update a Sales Order</h2>
-<form class="cuForm" id="update_salesorder_form">
-  <label for="update_salesorder_id">Sales Order to Update:</label>
-  <select name="update_salesorder_id" id="update_salesorder_id" required>
+<form class="cuForm" id="update_salesorder_form" method="POST" action="/salesorders/update">
+  <label for="orderID">Order to Update:</label>
+  <select name="orderID" id="orderID" required>
     <option value="" disabled selected>Select an Order</option>
     {{#each salesorders}}
-    <option value="{{this.orderID}}">{{this.orderID}}</option>
+     <option value="{{this.orderID}}">{{this.orderID}}</option>
     {{/each}}
   </select>
 
-  <label for="update_salesorder_clientID">New Client:</label>
-  <select name="update_salesorder_clientID" id="update_salesorder_clientID">
-    <option value="" disabled selected>Select a Client</option>
+  <label for="orderDate">New Order Date:</label>
+  <input type="date" name="orderDate" id="orderDate" />
+
+  <label for="clientID">New Client:</label>
+  <select name="clientID" id="clientID">
+    <option value="" disabled selected>Select Client</option>
     {{#each clients}}
-    <option value="{{this.clientID}}">{{this.firstName}} {{this.lastName}}</option>
+    <option value="{{this.clientID}}">
+      {{this.clientID}} - {{this.firstName}} {{this.lastName}}
+    </option>
     {{/each}}
   </select>
 
-  <label for="update_salesorder_orderDate">New Order Date:</label>
-  <input type="date" name="update_salesorder_orderDate" id="update_salesorder_orderDate" />
+  <label for="totalAmount">New Total Amount:</label>
+  <input type="number" step="0.01" name="totalAmount" id="totalAmount" />
 
-  <label for="update_salesorder_orderStatus">New Status:</label>
-  <select name="update_salesorder_orderStatus" id="update_salesorder_orderStatus">
-    <option value="" disabled selected>Select Status</option>
-    <option value="Pending">Pending</option>
-    <option value="Shipped">Shipped</option>
-    <option value="Completed">Completed</option>
-    <option value="Cancelled">Cancelled</option>
-  </select>
+  <label for="orderStatus">New Order Status:</label>
+  <input type="text" name="orderStatus" id="orderStatus" />
 
-  <input type="submit" />
+  <button type="submit">Update Order</button>
 </form>
