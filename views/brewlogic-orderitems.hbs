@@ -60,21 +60,36 @@
 {{!-- UPDATE form --}}
 <h2>Update an Order Item</h2>
 <form class="cuForm" id="update_orderitem_form" method="POST" action="/orderitems/update">
-  <label for="orderItemID">Order Item to Update:</label>
-  <select name="orderItemID" id="orderItemID" required>
+  <label for="updateOrderItemID">Order Item to Update:</label>
+  <select name="orderItemID" id="updateOrderItemID" required>
     <option value="" disabled selected>Select an Item</option>
     {{#each orderitems}}
-    <option value="{{this.orderItemID}}">
+    <option value="{{this.orderItemID}}"
+            data-qty="{{this.orderQty}}"
+            data-price="{{this.unitPrice}}"
+            data-product="{{this.productID}}"
+            data-order="{{this.orderID}}">
       {{this.orderItemID}} - {{this.productID}} (Order {{this.orderID}})
     </option>
     {{/each}}
   </select>
 
-  <label for="orderQty">New Quantity:</label>
-  <input type="number" name="orderQty" id="orderQty" />
+  <label for="updateOrderQty">Quantity:</label>
+  <input type="number" name="orderQty" id="updateOrderQty" />
 
-  <label for="unitPrice">New Unit Price:</label>
-  <input type="number" step="0.01" name="unitPrice" id="unitPrice" />
+  <label for="updateUnitPrice">Unit Price:</label>
+  <input type="number" step="0.01" name="unitPrice" id="updateUnitPrice" />
 
   <button type="submit">Update Item</button>
 </form>
+
+<script>
+document.getElementById('updateOrderItemID').addEventListener('change', function() {
+  const option = this.selectedOptions[0];
+  document.getElementById('updateOrderQty').value = option.dataset.qty || "";
+  document.getElementById('updateUnitPrice').value = option.dataset.price || "";
+  // If you later add product or order dropdowns, you can preselect them too:
+  // document.getElementById('updateProductID').value = option.dataset.product || "";
+  // document.getElementById('updateOrderID').value = option.dataset.order || "";
+});
+</script>

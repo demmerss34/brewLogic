@@ -59,19 +59,25 @@
 {{!-- UPDATE form --}}
 <h2>Update a Sales Order</h2>
 <form class="cuForm" id="update_salesorder_form" method="POST" action="/salesorders/update">
-  <label for="orderID">Order to Update:</label>
-  <select name="orderID" id="orderID" required>
+  <label for="updateOrderID">Order to Update:</label>
+  <select name="orderID" id="updateOrderID" required>
     <option value="" disabled selected>Select an Order</option>
     {{#each salesorders}}
-     <option value="{{this.orderID}}">{{this.orderID}}</option>
+    <option value="{{this.orderID}}"
+            data-date="{{formatDate this.orderDate}}"
+            data-client="{{this.clientID}}"
+            data-amount="{{this.totalAmount}}"
+            data-status="{{this.orderStatus}}">
+      {{this.orderID}}
+    </option>
     {{/each}}
   </select>
 
-  <label for="orderDate">New Order Date:</label>
-  <input type="date" name="orderDate" id="orderDate" />
+  <label for="updateOrderDate">Order Date:</label>
+  <input type="date" name="orderDate" id="updateOrderDate" />
 
-  <label for="clientID">New Client:</label>
-  <select name="clientID" id="clientID">
+  <label for="updateClientID">Client:</label>
+  <select name="clientID" id="updateClientID">
     <option value="" disabled selected>Select Client</option>
     {{#each clients}}
     <option value="{{this.clientID}}">
@@ -80,11 +86,22 @@
     {{/each}}
   </select>
 
-  <label for="totalAmount">New Total Amount:</label>
-  <input type="number" step="0.01" name="totalAmount" id="totalAmount" />
+  <label for="updateTotalAmount">Total Amount:</label>
+  <input type="number" step="0.01" name="totalAmount" id="updateTotalAmount" />
 
-  <label for="orderStatus">New Order Status:</label>
-  <input type="text" name="orderStatus" id="orderStatus" />
+  <label for="updateOrderStatus">Order Status:</label>
+  <input type="text" name="orderStatus" id="updateOrderStatus" />
 
   <button type="submit">Update Order</button>
 </form>
+
+<script>
+document.getElementById('updateOrderID').addEventListener('change', function() {
+  const option = this.selectedOptions[0];
+  document.getElementById('updateOrderDate').value = option.dataset.date || "";
+  document.getElementById('updateTotalAmount').value = option.dataset.amount || "";
+  document.getElementById('updateOrderStatus').value = option.dataset.status || "";
+  // Preselect the client dropdown
+  document.getElementById('updateClientID').value = option.dataset.client || "";
+});
+</script>
